@@ -47,4 +47,17 @@ def get_homeworld_name(val, row):
 def read_dataset(filepath):
     table = etl.fromcsv(filepath)
     header = etl.header(table)
-    return table, header
+    return table, header, header
+
+
+def count_dataset(filepath, parameters):
+    table = etl.fromcsv(filepath)
+    table1 = etl.valuecounts(table, *parameters)
+    table2 = etl.convert(table1, 'frequency', round_frequency, pass_row=True)
+    header = etl.header(table2)
+    buttons = etl.header(table)
+    return table2, header, buttons
+
+
+def round_frequency(val, row):
+    return round(val, 3)

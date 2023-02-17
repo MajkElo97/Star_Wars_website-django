@@ -2,24 +2,25 @@
 
 
 {% block content %}
-<div class="btn-group" role="toolbar" aria-label="Basic example">
-    {% for name in header %}
-    <button type="button" class="btn btn-secondary">{{name}}</button>
+<form method="GET">
+
+    <p class="lead tb-col bt-count">Select count filters:</p>
+    <input class="btn btn-primary bt-count bt-margin" type="submit" value="count">
+    <br>
+    <div style="clear:both;"></div>
+    {% for button_name in buttons %}
+    <div class="count-button">
+        <label>
+            <input type="checkbox" name="{{button_name}}" value="1"><span>{{button_name}}</span>
+        </label>
+    </div>
     {% endfor %}
-</div>
 
 
-<form method="POST">
-    {% csrf_token %}
 
-    {% for name in header %}
-        <input class="btn btn-secondary" type="button" value="{{name}}">
-    {% endfor %}
-
-    <input class="mrg-button btn btn-primary btn-lg" type="submit" value="count">
 </form>
 
-<table class="table table-hover tb-col text-left">
+<table class="table tb-col text-left">
 
     <thead>
     <tr>
