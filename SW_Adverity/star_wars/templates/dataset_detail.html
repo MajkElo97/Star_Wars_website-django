@@ -3,9 +3,9 @@
 
 {% block content %}
 <form method="GET">
-
-    <p class="lead tb-col bt-count">Select count filters:</p>
-    <input class="btn btn-primary bt-count bt-margin" type="submit" value="count">
+    <p class="lead">Character explorer</p>
+    <p class="lead tb-col p-bt-count">Select count filters:</p>
+    <input class="btn btn-primary p-bt-count bt-count" type="submit" value="count">
     <br>
     <div style="clear:both;"></div>
     {% for button_name in buttons %}
@@ -17,10 +17,9 @@
     {% endfor %}
 
 
-
 </form>
 
-<table class="table tb-col text-left">
+<table class="table text-left tb-col">
 
     <thead>
     <tr>

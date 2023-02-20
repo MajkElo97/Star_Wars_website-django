@@ -2,8 +2,11 @@
 
 
 {% block content %}
-<a class="btn btn-warning btn-lg mrg-button" href="/fetch" role="button">+ Fetch data +</a>
-
+<p class="lead">Datasets explorer</p>
+<form method="POST">
+    {% csrf_token %}
+    <input class="btn btn-warning btn-lg mrg-button" type="submit" value="+ Fetch data +">
+</form>
 <table class="table table-hover tb-col text-left">
     <tbody>
     {% for set in object_list %}
