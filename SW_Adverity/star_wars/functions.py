@@ -75,3 +75,12 @@ def count_dataset(filepath, parameters):
 # Function for rounding frequency column
 def round_frequency(val):
     return round(val, 3)
+
+
+# Class for row displaying configuration
+class Rows:
+    def __init__(self):
+        self.rows = 10
+
+    def add_row(self):
+        self.rows += 10

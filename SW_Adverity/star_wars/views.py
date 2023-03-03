@@ -1,17 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .functions import get_swapi, count_dataset, read_dataset
+from .functions import get_swapi, count_dataset, read_dataset, Rows
 from .models import DataSet
 
-rows_to_display = 10
+rows_to_display = Rows()
 
 
 # Home view with datasets
 def home_view(request):
-    global rows_to_display
+    rows_to_display.__init__()
     if request.method == 'POST':
         get_swapi()
         return redirect(".")
-    rows_to_display = 10
     queryset = DataSet.objects.all().order_by('-id')
     context = {
         'object_list': queryset
@@ -21,22 +20,21 @@ def home_view(request):
 
 # Dataset view with all characters
 def dataset_detail_view(request, id_):
-    global rows_to_display
     parameters = request.GET
     obj = get_object_or_404(DataSet, id=id_)
 
     if len(parameters) == 0:
         if request.method == 'POST':
-            rows_to_display += 10
+            rows_to_display.add_row()
             return redirect(".")
 
         visible = True
         dataset = read_dataset(obj.filepath)
-        if rows_to_display >= len(dataset[0]) - 1:
+        if rows_to_display.rows >= len(dataset[0]) - 1:
             visible = False
 
         context = {
-            'dataset': dataset[0][1:rows_to_display + 1],
+            'dataset': dataset[0][1:rows_to_display.rows + 1],
             'header': dataset[1],
             'buttons': dataset[2],
             'visible': visible,
@@ -58,3 +56,8 @@ def dataset_detail_view(request, id_):
 # - improve the design of the page
 # - Thing about efficiency: I already implement the function to lower the amount of requests for getting the planet name.
 # - Time the app needs to fetch new data from SWAPI depends mostly on SWAPI server. The fastest time I get was about 5s
+
+# To be corrected
+# lack of tests
+# no typing
+# date column was implemented incorrectly
